@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5090963070419410091}
   - component: {fileID: 5090963070419410089}
   - component: {fileID: 5090963070419410088}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: FrostFlakeSub01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4894,7 +4894,7 @@ GameObject:
   - component: {fileID: 5090963070521271225}
   - component: {fileID: 5090963070521271175}
   - component: {fileID: 5090963070521271174}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_SnowFlakes02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9818,7 +9818,7 @@ GameObject:
   - component: {fileID: 5090963071005738842}
   - component: {fileID: 5090963071005738845}
   - component: {fileID: 5090963071005738844}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_SnowFlakes01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14746,7 +14746,7 @@ GameObject:
   - component: {fileID: 5090963071043708837}
   - component: {fileID: 5090963071043708836}
   - component: {fileID: 5090963071043708839}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_FrostSmokeA1_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19598,7 +19598,7 @@ GameObject:
   - component: {fileID: 5090963071071972143}
   - component: {fileID: 5090963071071972142}
   - component: {fileID: 5090963071071972129}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_GlowSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24576,7 +24576,7 @@ GameObject:
   - component: {fileID: 5090963071250944074}
   - component: {fileID: 5090963071250944072}
   - component: {fileID: 5090963071250944075}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_SnowFlakes04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29504,9 +29504,9 @@ GameObject:
   - component: {fileID: 8732568516024993177}
   - component: {fileID: 6899067899872454642}
   - component: {fileID: 8915448642286136635}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Magic_Ice 1
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34618,7 +34618,7 @@ GameObject:
   - component: {fileID: 5090963071489593279}
   - component: {fileID: 5090963071489593277}
   - component: {fileID: 5090963071489593276}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: FrostSmoke02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39501,7 +39501,7 @@ GameObject:
   - component: {fileID: 5090963071812016528}
   - component: {fileID: 5090963071812016542}
   - component: {fileID: 5090963071812016529}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_IceGlowCircles01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44344,7 +44344,7 @@ GameObject:
   - component: {fileID: 5090963072011190631}
   - component: {fileID: 5090963072011190629}
   - component: {fileID: 5090963072011190628}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: FrostSmokeHoriz01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49227,7 +49227,7 @@ GameObject:
   - component: {fileID: 5090963072048388597}
   - component: {fileID: 5090963072048388595}
   - component: {fileID: 5090963072048388594}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: FrostDrops_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54167,7 +54167,7 @@ GameObject:
   - component: {fileID: 5090963072160354328}
   - component: {fileID: 5090963072160354534}
   - component: {fileID: 5090963072160354329}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_SnowFlakes05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59091,7 +59091,7 @@ GameObject:
   - component: {fileID: 5090963072184289270}
   - component: {fileID: 5090963072184289268}
   - component: {fileID: 5090963072184289271}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_IceGlowBig02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63961,7 +63961,7 @@ GameObject:
   - component: {fileID: 5090963072369998773}
   - component: {fileID: 5090963072369998771}
   - component: {fileID: 5090963072369998770}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: FrostDropGlowSub01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68905,7 +68905,7 @@ GameObject:
   - component: {fileID: 5090963072439577524}
   - component: {fileID: 5090963072439577522}
   - component: {fileID: 5090963072439577525}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_SnowFlakes03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73829,7 +73829,7 @@ GameObject:
   - component: {fileID: 5090963072472680778}
   - component: {fileID: 5090963072472680776}
   - component: {fileID: 5090963072472680779}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_FrostFlakesA1_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78672,7 +78672,7 @@ GameObject:
   - component: {fileID: 5090963072545005646}
   - component: {fileID: 5090963072545005644}
   - component: {fileID: 5090963072545005647}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Ef_IceGlowCircles02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

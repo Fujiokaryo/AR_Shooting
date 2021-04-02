@@ -9,7 +9,7 @@ public class BulletController : MonoBehaviour
     {
         GetComponent<Rigidbody>().AddForce(dir);
 
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 2f);
     }
 
 }

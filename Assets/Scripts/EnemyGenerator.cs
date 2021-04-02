@@ -10,8 +10,11 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField]
     private GameMaster gameMaster;
 
+    public int enemyCount = 0;
+
     private GameObject target;
     private float enemyGenTime;
+    
 
     private void Start()
     {
@@ -22,10 +25,27 @@ public class EnemyGenerator : MonoBehaviour
     {
         enemyGenTime += Time.deltaTime;
 
-        if(enemyGenTime > 5)
+        if(enemyCount >= 1)
         {
-            GenerateEnemy();
-            enemyGenTime = 0;
+            gameMaster.ChangeBattle(true);
+        }
+
+        if (enemyCount < 10)
+        {
+            if (enemyGenTime > 5)
+            {
+                for (int i = 1; i <= Random.Range(1, 5); i++)
+                {
+                    GenerateEnemy();
+                }
+                
+                enemyGenTime = 0;
+            }
+        }
+
+        if(enemyCount == 0)
+        {
+            gameMaster.ChangeBattle();
         }
     }
 
@@ -33,8 +53,8 @@ public class EnemyGenerator : MonoBehaviour
     {
         
         GameObject enemy = Instantiate(enemyPrefab,new Vector3(transform.position.x, 0.1f, transform.position.z + Random.Range(-10, 10)), Quaternion.identity);
-        enemy.GetComponent<EnemyController>().SetUpEnemy(target);
-        gameMaster.ChangeBattle(true);
+        enemy.GetComponent<EnemyController>().SetUpEnemy(target, this);
+        enemyCount++;
         
     }
 
