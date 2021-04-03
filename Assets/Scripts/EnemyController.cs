@@ -28,7 +28,12 @@ public class EnemyController : MonoBehaviour
     private Vector3 soulPos = new Vector3(0, 5f, 0);
     private int maxHp;
     private GameMaster gameMaster;
-
+    
+    /// <summary>
+    /// エネミーの初期設定
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="enemyGenerator"></param>
     public void SetUpEnemy(GameObject target, EnemyGenerator enemyGenerator)
     {
         this.target = target;
@@ -40,6 +45,9 @@ public class EnemyController : MonoBehaviour
         transform.LookAt(target.transform);        
     }
 
+    /// <summary>
+    /// プレイヤーの近くまで前進
+    /// </summary>
     private void Update()
     {
         Vector3 targetPos = new Vector3(target.transform.position.x, 0.1f, target.transform.position.z);
@@ -53,12 +61,17 @@ public class EnemyController : MonoBehaviour
 
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.gameObject.tag == "Bullet")
         {
-            Damage();
+            //当たった魔法の情報を取得
+            BulletDataSO.BulletData bulletData = other.gameObject.GetComponent<BulletController>().bulletData;
+
+            Damage(bulletData);
+
         }
 
 
@@ -69,11 +82,16 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    private void Damage()
+    /// <summary>
+    /// 魔法が当たった時のダメージ処理
+    /// </summary>
+    public void Damage(BulletDataSO.BulletData bulletData)
     {
-        hp -= 20;
+        //敵のHPを減算、HP量にHPバーを同期
+        hp -= bulletData.power;
         UpdateHpBarValue(hp, maxHp);
 
+        //HPが0になったら魂を生成して敵を破壊
         if(hp <= 0)
         {
             hp = 0;
@@ -87,13 +105,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// プレイヤーへの接近判定をして攻撃準備
+    /// </summary>
     private void ChangeAttackFlag()
     {
         attackPlayer = true;
         StartCoroutine(AttanckEnemy());
     }
 
+    /// <summary>
+    /// 1秒以上プレイヤーの近くにいたら自爆攻撃、自爆エフェクトの生成
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator AttanckEnemy()
     {
         yield return new WaitForSeconds(1f);
@@ -106,6 +130,11 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 敵のHPバーの更新
+    /// </summary>
+    /// <param name="hp"></param>
+    /// <param name="maxHp"></param>
     private void UpdateHpBarValue(int hp, int maxHp)
     {
         enemyHpBar.value = (float)hp / (float)maxHp;
