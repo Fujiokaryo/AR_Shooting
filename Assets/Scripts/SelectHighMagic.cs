@@ -15,8 +15,7 @@ public class SelectHighMagic : MonoBehaviour
     public void UseHighMagic()
     {
         bulletGenerator.useHighMagic = true;
-        gameMaster.playerMp -= gameMaster.highMagicCost;
-        gameMaster.UpDatePlayerMP();
+        gameMaster.UpDatePlayerMP((float)-gameMaster.highMagicCost);
         
     }
 }

@@ -33,7 +33,7 @@ public class BulletGenerator : MonoBehaviour
 
         bulletData = SelectMagic();
 
-        bullet = Instantiate(bulletData.bulletPurefab, transform.position, Quaternion.identity);
+        bullet = Instantiate(bulletData.bulletPrefab, transform.position, Quaternion.identity);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 worldDir = ray.direction;

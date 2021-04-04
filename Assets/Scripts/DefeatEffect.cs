@@ -12,10 +12,18 @@ public class DefeatEffect : MonoBehaviour
     private GameObject target;
     private Slider playerMPBar;
     private GameMaster gameMaster;
+    private ItemDetaSO.ItemData itemData;
 
     public void SetUpSoul(GameObject target)
     {
         this.target = target;
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+    }
+
+    public void SetUpItem(ItemDetaSO.ItemData itemData, GameObject target)
+    {
+        this.target = target;
+        this.itemData = itemData;
         gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
@@ -24,7 +32,7 @@ public class DefeatEffect : MonoBehaviour
         timer += Time.deltaTime;
         
         
-        if (gameObject.tag == "Soul")
+        if (gameObject.tag == "Soul" || gameObject.tag == "Item")
         {
             Vector3 targetPos = new Vector3(target.transform.position.x, 5, target.transform.position.z);
 
@@ -41,7 +49,19 @@ public class DefeatEffect : MonoBehaviour
 
             if (gameObject.tag == "Soul")
             {
-                gameMaster.UpDatePlayerMP();
+                gameMaster.UpDatePlayerMP(0.2f);
+            }
+
+            if(gameObject.tag == "Item")
+            {
+                if(itemData.no == 0)
+                {
+                    gameMaster.UpDatePlayerHP((int)-itemData.value);
+                }
+                else
+                {
+                    gameMaster.UpDatePlayerMP(itemData.value);
+                }
             }
 
             Destroy(gameObject);

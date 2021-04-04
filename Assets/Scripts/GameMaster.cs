@@ -25,8 +25,8 @@ public class GameMaster : MonoBehaviour
     private int playerMaxMp = 3;
     private int highMagicCount;  
     public int highMagicCost = 1;
-   
-
+    public bool isBossBattle;
+    public bool bossClear;
 
     private void Start()
     {
@@ -49,15 +49,21 @@ public class GameMaster : MonoBehaviour
     public void UpDatePlayerHP(int damage)
     {
         playerHp -= damage;
+
+        if(playerHp > playerMaxHp)
+        {
+            playerHp = playerMaxHp;
+        }
+
         playerHpBar.DOValue((float)playerHp / (float)playerMaxHp, 0.25f);
     }
 
     /// <summary>
     /// プレイヤーのMP量の更新
     /// </summary>
-    public void UpDatePlayerMP()
+    public void UpDatePlayerMP(float getMp)
     {
-        playerMp += 0.2f;
+        playerMp += getMp;
 
         if(playerMp >= 3)
         {
@@ -108,5 +114,12 @@ public class GameMaster : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// ボスを倒しているかの判定
+    /// </summary>
+    public void ChengeBossClear()
+    {
+        bossClear = true;
+    }
 
 }

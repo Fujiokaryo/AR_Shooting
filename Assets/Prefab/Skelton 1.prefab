@@ -1307,8 +1307,10 @@ MonoBehaviour:
   enemyExprode: {fileID: 3768596864097172975, guid: 05624a861f584934f8afe595b278c0e8, type: 3}
   downEffect: {fileID: 9045193174969519768, guid: 890b027ffb3b40746bc67ae6ccb8ae15, type: 3}
   enemyHpBar: {fileID: 4046941069293784339}
+  itemDataSO: {fileID: 11400000, guid: c2cd8d51163fdfe4999362d4f3728e33, type: 2}
   hp: 100
   speed: 0
+  enemy: []
 --- !u!136 &6756772663155259253
 CapsuleCollider:
   m_ObjectHideFlags: 0

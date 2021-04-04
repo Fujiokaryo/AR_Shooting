@@ -12,7 +12,7 @@ public class BulletDataSO : ScriptableObject
     public class BulletData
     {
         public int no;
-        public GameObject bulletPurefab;
+        public GameObject bulletPrefab;
         public int power;
         public int speed;
     }
