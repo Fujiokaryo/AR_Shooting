@@ -137,20 +137,25 @@ public class EnemyController : MonoBehaviour
             hp = 0;
             enemyGenerator.DecreaseEnemyCount();
 
+            //ボスモンスターの場合
             if(isBoss == true)
             {
+                //ボス撃破フラグの切り替え
                 gameMaster.ChengeBossClear();
                 enemyGenerator.isBossBattle = false;
-                
             }
 
+            //倒した敵の魂の生成、設定
             GameObject soul = Instantiate(downEffect, gameObject.transform.position + soulPos, Quaternion.identity);
             soul.GetComponent<DefeatEffect>().SetUpSoul(target);
 
+            //アイテムを落とすかの判定
             if(itemDrop < 10)
             {
                 EnemyDropItem();
             }
+
+            gameMaster.CheckStageClear();
 
             Destroy(gameObject);
         }
@@ -173,9 +178,13 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        //自爆したらプレイヤーのHPを攻撃力分減らす
         gameMaster.UpDatePlayerHP(DecisionPower(isBoss));
 
+        //自爆演出の生成
         Instantiate(enemyExprode, gameObject.transform.position, Quaternion.identity);
+
+        //自爆して消えた分の敵数を減らす
         enemyGenerator.DecreaseEnemyCount();
 
         Destroy(gameObject);
@@ -215,8 +224,10 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private void EnemyDropItem()
     {
+        //生成するアイテムの種類をランダムで決定
         int itemType = Random.Range(0, 5);
 
+        //アイテムの生成、設定
         GameObject item = Instantiate(SelectItem(itemType).itemPrefab, gameObject.transform.position + soulPos, Quaternion.identity);
         item.GetComponent<DefeatEffect>().SetUpItem(SelectItem(itemType), target);
     }

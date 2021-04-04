@@ -14,14 +14,16 @@ public class MoveCamera : MonoBehaviour
     private EnemyGenerator enemyGenerator;
 
     public float dx;
-    bool isBoss;
+    private bool isBoss;
+    private bool moveCamera;
+    
 
     /// <summary>
     /// isBattleフラグがtrueの時のみ前進する
     /// </summary>
     void Update()
     {
-        if (gameMaster.bossClear == true || enemyGenerator.isBossBattle == true)
+        if (CheckMoveCamera() == false) 
         {
             return;
         }
@@ -42,5 +44,31 @@ public class MoveCamera : MonoBehaviour
             enemyGenerator.GenerateEnemy(isBoss);
             isBoss = false;
         }
+    }
+
+    private bool CheckMoveCamera()
+    {
+        if(gameMaster.bossClear == true)
+        {
+            moveCamera = false;
+        }
+        else if(enemyGenerator.isBossBattle == true)
+        {
+            moveCamera = false;
+        }
+        else if(gameMaster.isGameStart == false)
+        {
+            moveCamera = false;
+        }
+        else if(gameMaster.isGameOver == true)
+        {
+            moveCamera = false;
+        }
+        else
+        {
+            moveCamera = true;
+        }
+
+        return moveCamera;
     }
 }

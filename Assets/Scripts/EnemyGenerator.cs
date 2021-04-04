@@ -20,7 +20,7 @@ public class EnemyGenerator : MonoBehaviour
     public bool isBossBattle;
     
 
-    private void Start()
+    public void SetUPEnemyGenerator()
     {
         target = GameObject.Find("Camera");
     }
@@ -37,6 +37,7 @@ public class EnemyGenerator : MonoBehaviour
         //“G‚ª‚¢‚È‚­‚È‚Á‚½isBattleƒtƒ‰ƒO‚ğfalse‚É‚·‚é
         else if (enemyCount == 0)
         {
+            //“G‚Ì”‚ª0‚Ìê‡í“¬’†ƒtƒ‰ƒO‚ÌØ‚è‘Ö‚¦
             gameMaster.ChangeBattle();
         }
 
@@ -96,6 +97,9 @@ public class EnemyGenerator : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// “|‚³‚ê‚½“G‚Ì”‚ğŒ¸‚ç‚·
+    /// </summary>
     public void DecreaseEnemyCount()
     {
         enemyCount--;

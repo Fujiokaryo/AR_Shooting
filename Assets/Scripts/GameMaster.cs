@@ -18,19 +18,38 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private Button magicButton;
 
-    public bool isBattle;
+    [SerializeField]
+    private EnemyGenerator enemyGenerator;
+
+    [SerializeField]
+    private GameObject gameOverSet;
+
+    [SerializeField]
+    private Image gameOverFilter;
+
+    [SerializeField]
+    private GameObject imgGameOver;
+
     private int playerHp = 100;
     private int playerMaxHp;
-    public float playerMp;
     private int playerMaxMp = 3;
     private int highMagicCount;  
     public int highMagicCost = 1;
-    public bool isBossBattle;
+    public float playerMp;
     public bool bossClear;
+    public bool isGameStart;
+    public bool isBattle;
+    public bool isStageClear;
+    public bool isGameOver;
 
-    private void Start()
+    private IEnumerator Start()
     {
         playerMaxHp = playerHp;
+        enemyGenerator.SetUPEnemyGenerator();
+
+        yield return new WaitForSeconds(2f);
+
+        isGameStart = true;
     }
 
     /// <summary>
@@ -56,6 +75,13 @@ public class GameMaster : MonoBehaviour
         }
 
         playerHpBar.DOValue((float)playerHp / (float)playerMaxHp, 0.25f);
+
+        if(playerHp <= 0)
+        {
+            playerHp = 0;
+            GameOverEffect();
+        }
+        
     }
 
     /// <summary>
@@ -120,6 +146,31 @@ public class GameMaster : MonoBehaviour
     public void ChengeBossClear()
     {
         bossClear = true;
+    }
+
+    /// <summary>
+    /// ボス討伐済みかつ出現している敵が0の場合にステージクリア判定をする
+    /// </summary>
+    public void CheckStageClear()
+    {
+        if(bossClear == true && enemyGenerator.enemyCount == 0)
+        {
+            isStageClear = true;
+        }
+           
+    }
+
+    /// <summary>
+    /// ゲームオーバー演出
+    /// </summary>
+    private void GameOverEffect()
+    {
+        isGameOver = true;
+        gameOverSet.SetActive(true);
+
+        gameOverFilter.DOFade(0.6f, 1.5f).SetEase(Ease.Linear)
+            .OnComplete(() => imgGameOver.SetActive(true));
+     
     }
 
 }
