@@ -16,7 +16,7 @@ public class MoveCamera : MonoBehaviour
     public float dx;
     private bool isBoss;
     private bool moveCamera;
-    
+    private bool bossBgm;
 
     /// <summary>
     /// isBattleフラグがtrueの時のみ前進する
@@ -32,17 +32,31 @@ public class MoveCamera : MonoBehaviour
         if (CheckMoveCamera() == true)
         {
             this.transform.position += new Vector3(dx * Time.deltaTime, 0, 0);
+
+
             if (gameObject.transform.position.x > 75)
             {
                 isBoss = true;
             }
         }
 
+      
 
         if (isBoss == true)
         {
             enemyGenerator.GenerateEnemy(isBoss);
             isBoss = false;
+            
+        }
+                
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "PlayBossBGM")
+        {
+            BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Boss);
+            Debug.Log("a");
         }
     }
 
@@ -78,4 +92,6 @@ public class MoveCamera : MonoBehaviour
                           
         return moveCamera;
     }
+
+  
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class GameMaster : MonoBehaviour
 {
@@ -27,6 +28,15 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private Text hpText;
 
+    [SerializeField]
+    private GameObject gameStartSet;
+
+    [SerializeField]
+    private Image imgLevelNum;
+
+    [SerializeField]
+    private PlayGameLevelSO playGameLevel;
+
     private int playerHp;
     public int playerMaxHp;
     private int playerMaxMp;
@@ -40,6 +50,9 @@ public class GameMaster : MonoBehaviour
 
     public IEnumerator Start()
     {
+        BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Main);
+        imgLevelNum.sprite = SelectGameLevelNum();
+
         //äÓñ{HPÇÕ100ÅAHPLevelÇ™è„Ç™ÇÈñàÇ…50Ç∏Ç¬è„è∏
         playerHp = 50 + GameLevel.instance.hpLevel * 50;
         playerMaxHp = playerHp;
@@ -50,7 +63,7 @@ public class GameMaster : MonoBehaviour
         hpText.text = playerHp + " / " + playerMaxHp.ToString();
 
         yield return new WaitForSeconds(2.0f);
-
+        gameStartSet.SetActive(false);
         isGameStart = true;
     }
 
@@ -87,6 +100,7 @@ public class GameMaster : MonoBehaviour
         if (playerHp <= 0)
         {
             playerHp = 0;
+            BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.GameOver);
             GameOverEffect("GameOver");
         }
         hpText.text = playerHp + " / " + playerMaxHp.ToString();
@@ -164,7 +178,7 @@ public class GameMaster : MonoBehaviour
     {
         if(bossClear == true && enemyGenerator.enemyCount == 0)
         {
-            
+            BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.GameClear);
             GameOverEffect("GameClear");
         }
            
@@ -179,6 +193,7 @@ public class GameMaster : MonoBehaviour
         Image gameOverFilter = gameOverSet.transform.Find(GameOver + "Filter").gameObject.GetComponent<Image>();
         GameObject imgGameOver = gameOverSet.transform.Find("img" + GameOver).gameObject;
         GameObject nextLevelBtn = null;
+
         if (GameOver == "GameClear")
         {
             nextLevelBtn = imgGameOver.transform.Find("NextLevelButton").gameObject;
@@ -199,6 +214,16 @@ public class GameMaster : MonoBehaviour
             
         }
     }
+    
+    private Sprite SelectGameLevelNum()
+    {
+        PlayGameLevelSO.GameLevelImage newgameLevelImage = null;
+        foreach (PlayGameLevelSO.GameLevelImage gameLevelImage in playGameLevel.gameLevelImageList.Where(x => x.no == GameLevel.instance.gameLevel))
+        {
+            newgameLevelImage = gameLevelImage;
+            break;
+        }
 
- 
+        return newgameLevelImage.levelSprite;
+    }
 }

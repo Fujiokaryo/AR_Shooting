@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938522de40054db4d8c022e0f7c7c8c4, type: 3}
+  m_Name: PlayGameLevelSO
+  m_EditorClassIdentifier: 
+  gameLevelImageList:
+  - no: 1
+    levelSprite: {fileID: 21300000, guid: 6d05c0e3d8f2ef84abeb236d270e75ae, type: 3}
+  - no: 2
+    levelSprite: {fileID: 21300000, guid: 9cfd072357c30a544a41fac79c5dde18, type: 3}
+  - no: 3
+    levelSprite: {fileID: 21300000, guid: 67f7b4567c927264ba6124444b84bd09, type: 3}
+  - no: 4
+    levelSprite: {fileID: 21300000, guid: 056ac8d5fe78d2d488708d97473bf1b0, type: 3}
+  - no: 5
+    levelSprite: {fileID: 21300000, guid: 6118544fee2f2ce44a40d76015be2c56, type: 3}
+  - no: 6
+    levelSprite: {fileID: 21300000, guid: 1834b7595ac6b6546a3f2af1163c3fea, type: 3}
+  - no: 7
+    levelSprite: {fileID: 21300000, guid: 9d1f8659501e46b479ce2191b792ab9c, type: 3}
+  - no: 8
+    levelSprite: {fileID: 21300000, guid: 947213087094a5444bb40cea20ba66e9, type: 3}
+  - no: 9
+    levelSprite: {fileID: 21300000, guid: 1c54359cefc1ff945a7250b1e9dc8660, type: 3}
+  - no: 10
+    levelSprite: {fileID: 21300000, guid: c6d1d39d229ea1e4c9f2583813fa64c1, type: 3}

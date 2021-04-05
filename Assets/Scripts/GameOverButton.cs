@@ -35,6 +35,12 @@ public class GameOverButton : MonoBehaviour
         clearSet.SetActive(false);     
     }
 
+    public void LevelDownReStart()
+    {
+        GameLevel.instance.gameLevel--;
+        SceneManager.LoadScene("Main");
+    }
+
     /// <summary>
     /// hpLevelを上げてゲームスタート
     /// </summary>
