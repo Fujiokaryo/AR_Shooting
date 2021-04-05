@@ -29,7 +29,7 @@ public class MoveCamera : MonoBehaviour
         }
 
 
-        if (gameMaster.isBattle == false)
+        if (CheckMoveCamera() == true)
         {
             this.transform.position += new Vector3(dx * Time.deltaTime, 0, 0);
             if (gameObject.transform.position.x > 75)
@@ -46,9 +46,19 @@ public class MoveCamera : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ƒJƒƒ‰‚Ì’â~”»’è@moveCamera‚ªfalse‚È‚çƒJƒƒ‰ˆÚ“®’â~
+    /// </summary>
+    /// <returns></returns>
     private bool CheckMoveCamera()
     {
-        if(gameMaster.bossClear == true)
+        moveCamera = true;
+
+        if(gameMaster.isBattle == true)
+        {
+            moveCamera = false;
+        }
+        else if (gameMaster.bossClear == true)
         {
             moveCamera = false;
         }
@@ -64,11 +74,8 @@ public class MoveCamera : MonoBehaviour
         {
             moveCamera = false;
         }
-        else
-        {
-            moveCamera = true;
-        }
 
+                          
         return moveCamera;
     }
 }

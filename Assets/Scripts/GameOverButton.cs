@@ -5,18 +5,60 @@ using UnityEngine.SceneManagement;
 
 public class GameOverButton : MonoBehaviour
 {
+
+    
+    /// <summary>
+    /// ゲームリスタート
+    /// </summary>
     public void ReStart()
     {
-        string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("Main");
     }
-
+    /// <summary>
+    /// ゲーム終了
+    /// </summary>
     public void Exit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();                                
-#endif
+        SceneManager.LoadScene("Start");
+    }
+
+    /// <summary>
+    ///ゲームレベルを上げてゲームリスタート、ステータスアップ画面呼び出し 
+    /// 
+    /// </summary>
+    public void NextLevel()
+    {
+        GameObject canvas = GameObject.Find("Canvas");
+        GameObject clearSet = GameObject.Find("GameClearSet");
+        canvas.transform.Find("LevelUpSet").gameObject.SetActive(true);
+        GameLevel.instance.gameLevel++;
+        clearSet.SetActive(false);     
+    }
+
+    /// <summary>
+    /// hpLevelを上げてゲームスタート
+    /// </summary>
+    public void HpUP()
+    {
+        GameLevel.instance.hpLevel++;
+        SceneManager.LoadScene("Main");
+    }
+
+    /// <summary>
+    /// manaLevelを上げてゲームスタート
+    /// </summary>
+    public void ManaUp()
+    {
+        GameLevel.instance.manaLevel++;
+        SceneManager.LoadScene("Main");
+    }
+
+    /// <summary>
+    /// attackLevelを上げてゲームスタート
+    /// </summary>
+    public void AttackUP()
+    {
+        GameLevel.instance.attackLevel++;
+        SceneManager.LoadScene("Main");
     }
 }

@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private ItemDetaSO itemDataSO;
 
-    public int hp = 100;
+    public int hp;
     public int speed;
     public GameObject[] enemy;
 
@@ -48,13 +48,18 @@ public class EnemyController : MonoBehaviour
         this.isBoss = isBoss;
         gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         anime = GetComponent<Animator>();
+
+        //“G‚Ì‰ŠúHpA100‚©‚çgameLevel‚ª1ã‚ª‚é–ˆ‚É20‚¸‚Â‘‰Á
+        hp = 80 + GameLevel.instance.gameLevel * 20;
         enemyHpBar.value = 1.0f;
         transform.LookAt(target.transform);      
         
         if(isBoss == true)
         {
             gameObject.transform.localScale = gameObject.transform.localScale * 3;
-            hp = 500;
+
+            //ƒ{ƒX‚Ì‰ŠúHPA500‚©‚çgameLevel‚ª1ã‚ª‚é–ˆ‚É100‚¸‚Â‘‰Á
+            hp = 400 + GameLevel.instance.gameLevel * 100;
         }
 
         maxHp = hp;
@@ -128,7 +133,8 @@ public class EnemyController : MonoBehaviour
         int itemDrop = Random.Range(0, 100);
 
         //“G‚ÌHP‚ğŒ¸ZAHP—Ê‚ÉHPƒo[‚ğ“¯Šú
-        hp -= bulletData.power;
+        //attackLevel‚ª1ã‚ª‚é–ˆ‚É–‚–@‚ÌUŒ‚—Í‚ª5‚¸‚Âã¸
+        hp -= bulletData.power + GameLevel.instance.attackLevel * 5;
         UpdateHpBarValue(hp, maxHp);
 
         //HP‚ª0‚É‚È‚Á‚½‚ç°‚ğ¶¬‚µ‚Ä“G‚ğ”j‰ó
@@ -185,8 +191,12 @@ public class EnemyController : MonoBehaviour
         Instantiate(enemyExprode, gameObject.transform.position, Quaternion.identity);
 
         //©”š‚µ‚ÄÁ‚¦‚½•ª‚Ì“G”‚ğŒ¸‚ç‚·
-        enemyGenerator.DecreaseEnemyCount();
+        if (hp > 0)
+        {
+            enemyGenerator.DecreaseEnemyCount();
+        }
 
+        gameMaster.CheckStageClear();
         Destroy(gameObject);
     }
 
@@ -209,11 +219,13 @@ public class EnemyController : MonoBehaviour
     {
         if(isBoss == false)
         {
-            attackPower = 20;
+            //“G‚ÌŠî‘bUŒ‚—Í‚ğ20‚Æ‚µ‚ÄGameLevel‚ªã‚ª‚é–ˆ‚ÉUŒ‚—Í‚ª10ã¸
+            attackPower = 10 + GameLevel.instance.gameLevel * 10;
         }
         else
         {
-            attackPower = 100;
+            //ƒ{ƒX‚ÌUŒ‚‚ğ‘¦€UŒ‚‚É
+            attackPower = gameMaster.playerMaxHp;
         }
 
         return attackPower;

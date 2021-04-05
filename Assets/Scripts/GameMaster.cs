@@ -22,32 +22,34 @@ public class GameMaster : MonoBehaviour
     private EnemyGenerator enemyGenerator;
 
     [SerializeField]
-    private GameObject gameOverSet;
+    private GameObject canvas;
 
     [SerializeField]
-    private Image gameOverFilter;
+    private Text hpText;
 
-    [SerializeField]
-    private GameObject imgGameOver;
-
-    private int playerHp = 100;
-    private int playerMaxHp;
-    private int playerMaxMp = 3;
+    private int playerHp;
+    public int playerMaxHp;
+    private int playerMaxMp;
     private int highMagicCount;  
     public int highMagicCost = 1;
     public float playerMp;
     public bool bossClear;
     public bool isGameStart;
     public bool isBattle;
-    public bool isStageClear;
     public bool isGameOver;
 
-    private IEnumerator Start()
+    public IEnumerator Start()
     {
+        //基本HPは100、HPLevelが上がる毎に50ずつ上昇
+        playerHp = 50 + GameLevel.instance.hpLevel * 50;
         playerMaxHp = playerHp;
-        enemyGenerator.SetUPEnemyGenerator();
 
-        yield return new WaitForSeconds(2f);
+        //強魔法の最大ストック数、基本2でManaLevelが1上がる毎に1ずつ増加
+        playerMaxMp = GameLevel.instance.manaLevel;
+        enemyGenerator.SetUPEnemyGenerator();
+        hpText.text = playerHp + " / " + playerMaxHp.ToString();
+
+        yield return new WaitForSeconds(2.0f);
 
         isGameStart = true;
     }
@@ -67,6 +69,11 @@ public class GameMaster : MonoBehaviour
     /// <param name="damage"></param>
     public void UpDatePlayerHP(int damage)
     {
+        if(isGameOver == true)
+        {
+            return;
+        }
+
         playerHp -= damage;
 
         if(playerHp > playerMaxHp)
@@ -75,13 +82,15 @@ public class GameMaster : MonoBehaviour
         }
 
         playerHpBar.DOValue((float)playerHp / (float)playerMaxHp, 0.25f);
+        
 
-        if(playerHp <= 0)
+        if (playerHp <= 0)
         {
             playerHp = 0;
-            GameOverEffect();
+            GameOverEffect("GameOver");
         }
-        
+        hpText.text = playerHp + " / " + playerMaxHp.ToString();
+
     }
 
     /// <summary>
@@ -91,9 +100,9 @@ public class GameMaster : MonoBehaviour
     {
         playerMp += getMp;
 
-        if(playerMp >= 3)
+        if(playerMp >= playerMaxMp)
         {
-            playerMp = 3;
+            playerMp = playerMaxMp;
         }
 
         CheckHighMagicCount();
@@ -107,7 +116,7 @@ public class GameMaster : MonoBehaviour
         else if (playerMp >= highMagicCount)
         {
 
-            if(playerMp == 3)
+            if(playerMp == playerMaxMp)
             {
                 playerMpBar.DOValue(1, 0.25f);
                 return;
@@ -155,7 +164,8 @@ public class GameMaster : MonoBehaviour
     {
         if(bossClear == true && enemyGenerator.enemyCount == 0)
         {
-            isStageClear = true;
+            
+            GameOverEffect("GameClear");
         }
            
     }
@@ -163,14 +173,32 @@ public class GameMaster : MonoBehaviour
     /// <summary>
     /// ゲームオーバー演出
     /// </summary>
-    private void GameOverEffect()
+    private void GameOverEffect(string GameOver)
     {
+        GameObject gameOverSet = canvas.transform.Find(GameOver + "Set").gameObject;
+        Image gameOverFilter = gameOverSet.transform.Find(GameOver + "Filter").gameObject.GetComponent<Image>();
+        GameObject imgGameOver = gameOverSet.transform.Find("img" + GameOver).gameObject;
+        GameObject nextLevelBtn = null;
+        if (GameOver == "GameClear")
+        {
+            nextLevelBtn = imgGameOver.transform.Find("NextLevelButton").gameObject;
+        }
+
+
         isGameOver = true;
         gameOverSet.SetActive(true);
 
-        gameOverFilter.DOFade(0.6f, 1.5f).SetEase(Ease.Linear)
+        gameOverFilter.DOFade(0.6f, 2.0f).SetEase(Ease.Linear)
             .OnComplete(() => imgGameOver.SetActive(true));
-     
+        if (GameLevel.instance.gameLevel == 10)
+        {
+            if(nextLevelBtn.GetComponent<Button>().interactable == true)
+            {
+                nextLevelBtn.SetActive(false);
+            }
+            
+        }
     }
 
+ 
 }

@@ -15,12 +15,12 @@ MonoBehaviour:
   bulletDataList:
   - no: 0
     bulletPrefab: {fileID: 5090963071275546712, guid: c943fbc86b0b5a54fb9af6e5ac870757, type: 3}
-    power: 20
+    power: 15
     speed: 2000
   - no: 1
     bulletPrefab: {fileID: 7076339312043821542, guid: b1b8375c5b7c9bd48a817135b3ce6c01, type: 3}
-    power: 50
-    speed: 1000
+    power: 45
+    speed: 1500
   - no: 2
     bulletPrefab: {fileID: 546302737490823559, guid: 74db5a07789f720449488da66d75139f, type: 3}
     power: 0
