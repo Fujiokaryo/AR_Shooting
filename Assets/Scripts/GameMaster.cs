@@ -176,7 +176,7 @@ public class GameMaster : MonoBehaviour
     /// </summary>
     public void CheckStageClear()
     {
-        if(bossClear == true && enemyGenerator.enemyCount == 0)
+        if(bossClear == true && enemyGenerator.enemyCount == 0　&& isGameOver == false)
         {
             BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.GameClear);
             GameOverEffect("GameClear");
@@ -215,6 +215,10 @@ public class GameMaster : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// ステージレベル表示用のSpriteの選択
+    /// </summary>
+    /// <returns></returns>
     private Sprite SelectGameLevelNum()
     {
         PlayGameLevelSO.GameLevelImage newgameLevelImage = null;

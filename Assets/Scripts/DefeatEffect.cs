@@ -14,12 +14,21 @@ public class DefeatEffect : MonoBehaviour
     private GameMaster gameMaster;
     private ItemDetaSO.ItemData itemData;
 
+    /// <summary>
+    /// °‚Ìê‡‚Ì‰Šúİ’è
+    /// </summary>
+    /// <param name="target"></param>
     public void SetUpSoul(GameObject target)
     {
         this.target = target;
         gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
+    /// <summary>
+    /// ƒAƒCƒeƒ€‚Ìê‡‚Ì‰Šúİ’è
+    /// </summary>
+    /// <param name="itemData"></param>
+    /// <param name="target"></param>
     public void SetUpItem(ItemDetaSO.ItemData itemData, GameObject target)
     {
         this.target = target;

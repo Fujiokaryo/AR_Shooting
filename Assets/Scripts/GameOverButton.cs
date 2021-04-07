@@ -35,9 +35,16 @@ public class GameOverButton : MonoBehaviour
         clearSet.SetActive(false);     
     }
 
+    /// <summary>
+    /// ゲームレベルを下げてリスタート（詰み防止）
+    /// </summary>
     public void LevelDownReStart()
     {
         GameLevel.instance.gameLevel--;
+        if(GameLevel.instance.gameLevel < 1)
+        {
+            GameLevel.instance.gameLevel = 1;
+        }
         SceneManager.LoadScene("Main");
     }
 
