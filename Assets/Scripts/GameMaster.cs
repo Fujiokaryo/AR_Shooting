@@ -43,10 +43,12 @@ public class GameMaster : MonoBehaviour
     private int highMagicCount;  
     public int highMagicCost = 1;
     public float playerMp;
+
     public bool bossClear;
     public bool isGameStart;
     public bool isBattle;
     public bool isGameOver;
+    public bool isStageClear;
 
     public IEnumerator Start()
     {
@@ -102,6 +104,7 @@ public class GameMaster : MonoBehaviour
             playerHp = 0;
             BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.GameOver);
             GameOverEffect("GameOver");
+            isGameOver = true;
         }
         hpText.text = playerHp + " / " + playerMaxHp.ToString();
 
@@ -180,6 +183,7 @@ public class GameMaster : MonoBehaviour
         {
             BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.GameClear);
             GameOverEffect("GameClear");
+            isStageClear = true;
         }
            
     }
@@ -198,9 +202,7 @@ public class GameMaster : MonoBehaviour
         {
             nextLevelBtn = imgGameOver.transform.Find("NextLevelButton").gameObject;
         }
-
-
-        isGameOver = true;
+       
         gameOverSet.SetActive(true);
 
         gameOverFilter.DOFade(0.6f, 2.0f).SetEase(Ease.Linear)

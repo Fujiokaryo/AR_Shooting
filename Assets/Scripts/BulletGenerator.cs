@@ -13,13 +13,23 @@ public class BulletGenerator : MonoBehaviour
     [SerializeField]
     public BulletDataSO bulletDataSO;
 
+    [SerializeField]
+    private EnemyGenerator enemyGenerator;
+
     public bool useHighMagic;
 
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            ShotBullet();
+            if(!gameMaster.isGameOver)
+            {
+                if (!gameMaster.isStageClear)
+                {
+                    ShotBullet();
+                }
+            }
+            
         }
     }
 
