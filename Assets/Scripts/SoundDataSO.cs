@@ -30,4 +30,15 @@ public class SoundDataSO : ScriptableObject
 
     public List<BgmData> bgmDataList = new List<BgmData>();
 
+    [Serializable]
+    public class SeData
+    {
+        public int no;
+        public AudioClip seAudioClip;
+        public float volume = 0.1f;
+    }
+
+
+    public List<SeData> seDataList = new List<SeData>();
+
 }

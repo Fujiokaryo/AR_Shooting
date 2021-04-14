@@ -56,7 +56,6 @@ public class MoveCamera : MonoBehaviour
         if (other.gameObject.tag == "PlayBossBGM")
         {
             BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Boss);
-            Debug.Log("a");
         }
     }
 

@@ -18,6 +18,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private ItemDetaSO itemDataSO;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
     public int hp;
     public int speed;
     public GameObject[] enemy;
@@ -135,6 +138,7 @@ public class EnemyController : MonoBehaviour
         //“G‚ÌHP‚ğŒ¸ZAHP—Ê‚ÉHPƒo[‚ğ“¯Šú
         //attackLevel‚ª1ã‚ª‚é–ˆ‚É–‚–@‚ÌUŒ‚—Í‚ª5‚¸‚Âã¸
         hp -= bulletData.power + GameLevel.instance.attackLevel * 5;
+        BGMmanager.instance.PlaySE();
         UpdateHpBarValue(hp, maxHp);
 
         //HP‚ª0‚É‚È‚Á‚½‚ç°‚ğ¶¬‚µ‚Ä“G‚ğ”j‰ó

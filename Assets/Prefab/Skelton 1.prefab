@@ -1308,6 +1308,7 @@ MonoBehaviour:
   downEffect: {fileID: 9045193174969519768, guid: 890b027ffb3b40746bc67ae6ccb8ae15, type: 3}
   enemyHpBar: {fileID: 4046941069293784339}
   itemDataSO: {fileID: 11400000, guid: c2cd8d51163fdfe4999362d4f3728e33, type: 2}
+  audioSource: {fileID: 0}
   hp: 100
   speed: 0
   enemy: []

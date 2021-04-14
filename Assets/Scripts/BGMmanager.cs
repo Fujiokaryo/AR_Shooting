@@ -16,6 +16,8 @@ public class BGMmanager : MonoBehaviour
 
     private bool isCrossFading;
 
+    private AudioSource[] seSources = new AudioSource[6];
+
     private void Awake()
     {
         if (instance == null)
@@ -34,6 +36,11 @@ public class BGMmanager : MonoBehaviour
         }
 
         bgmSources[1].volume = 0;
+
+        for(int i = 0; i < seSources.Length; i++)
+        {
+            seSources[i] = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void PlayBGM(SoundDataSO.BgmType newBgmType, bool loopFlg = true)
@@ -99,6 +106,24 @@ public class BGMmanager : MonoBehaviour
             yield return new WaitForSeconds(CROSS_FADE_TIME);
             bgmSources[1].Stop();
             bgmSources[1].clip = null;
+        }
+    }
+
+    public void PlaySE()
+    {
+        SoundDataSO.SeData newSeData = null;
+
+        newSeData = soundDataSO.seDataList[0];
+
+        foreach(AudioSource source in seSources)
+        {
+            if(source.isPlaying == false)
+            {
+                source.clip = newSeData.seAudioClip;
+                source.volume = newSeData.volume;
+                source.Play();
+                return;
+            }
         }
     }
 }
