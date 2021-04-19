@@ -29,3 +29,7 @@ MonoBehaviour:
     bgmType: 3
     volume: 0.05
     bgmAudioClip: {fileID: 8300000, guid: caf19acf519a4d44eab7c32ff32a6371, type: 3}
+  seDataList:
+  - no: 0
+    seAudioClip: {fileID: 8300000, guid: d33f248ee1adc9840a73d381026cc12a, type: 3}
+    volume: 0.1

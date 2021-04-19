@@ -22,7 +22,7 @@ public class EnemyGenerator : MonoBehaviour
 
     public void SetUPEnemyGenerator()
     {
-        target = GameObject.Find("Camera");
+        target = GameObject.Find("AR Session Origin");
     }
 
     private void Update()

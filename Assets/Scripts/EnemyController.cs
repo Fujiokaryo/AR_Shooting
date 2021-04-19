@@ -18,9 +18,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private ItemDetaSO itemDataSO;
 
-    [SerializeField]
-    private AudioSource audioSource;
-
     public int hp;
     public int speed;
     public GameObject[] enemy;
