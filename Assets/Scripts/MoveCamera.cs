@@ -23,6 +23,16 @@ public class MoveCamera : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(new Vector3(0, -0.9f, 0));
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(new Vector3(0, 0.9f, 0));
+        }
+
         if (CheckMoveCamera() == false) 
         {
             return;
@@ -39,9 +49,8 @@ public class MoveCamera : MonoBehaviour
                 isBoss = true;
             }
         }
-
       
-
+      
         if (isBoss == true)
         {
             enemyGenerator.GenerateEnemy(isBoss);
@@ -56,6 +65,7 @@ public class MoveCamera : MonoBehaviour
         if (other.gameObject.tag == "PlayBossBGM")
         {
             BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Boss);
+            other.gameObject.SetActive(false);
         }
     }
 

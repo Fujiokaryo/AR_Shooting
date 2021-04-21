@@ -40,20 +40,20 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
-    [SerializeField]
-    private FieldAutoScroller fieldAutoScroller;
+    //[SerializeField]
+    //private FieldAutoScroller fieldAutoScroller;
 
-    [SerializeField]
-    private PathDataSO pathDataSO;
+    //[SerializeField]
+    //private PathDataSO pathDataSO;
 
     [SerializeField]
     private UIManager uiManager;
 
-    [SerializeField]
-    private List<GameObject> enemiesList = new List<GameObject>();
+   //[SerializeField]
+   //private List<GameObject> enemiesList = new List<GameObject>();
 
-    [SerializeField]
-    private List<GameObject> gimmicksList = new List<GameObject>();
+   //[SerializeField]
+   //private List<GameObject> gimmicksList = new List<GameObject>();
 
     [System.Serializable]
     public class RootEventData
@@ -82,23 +82,9 @@ public class GameMaster : MonoBehaviour
     public bool isGameOver;
     public bool isStageClear;
 
-    public IEnumerator Start()
+    public void Start()
     {
-        BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Main);
-        imgLevelNum.sprite = SelectGameLevelNum();
-
-        //基本HPは100、HPLevelが上がる毎に50ずつ上昇
-        playerHp = 50 + GameLevel.instance.hpLevel * 50;
-        playerMaxHp = playerHp;
-
-        //強魔法の最大ストック数、基本2でManaLevelが1上がる毎に1ずつ増加
-        playerMaxMp = GameLevel.instance.manaLevel;
-        enemyGenerator.SetUPEnemyGenerator();
-        hpText.text = playerHp + " / " + playerMaxHp.ToString();
-
-        yield return new WaitForSeconds(2.0f);
-        gameStartSet.SetActive(false);
-        isGameStart = true;
+        StartCoroutine(GameStartSet());
     }
 
     /// <summary>
@@ -265,15 +251,52 @@ public class GameMaster : MonoBehaviour
         return newgameLevelImage.levelSprite;
     }
 
+    public IEnumerator GameStartSet()
+    {
+        GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        gameStartSet.SetActive(true);
+        isGameStart = false;
+        BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Main);
+        imgLevelNum.sprite = SelectGameLevelNum();
+
+        for (int i = 0; i < enemy.Length; i++)
+        {
+            Destroy(enemy[i]);
+        }
+
+        //基本HPは100、HPLevelが上がる毎に50ずつ上昇
+        playerHp = 50 + GameLevel.instance.hpLevel * 50;
+        playerMaxHp = playerHp;
+
+        //強魔法の最大ストック数、基本2でManaLevelが1上がる毎に1ずつ増加
+        playerMaxMp = GameLevel.instance.manaLevel;
+        enemyGenerator.SetUPEnemyGenerator();
+        hpText.text = playerHp + " / " + playerMaxHp.ToString();
+
+        yield return new WaitForSeconds(2.0f);
+
+        gameStartSet.SetActive(false);
+        FlagSet();
+    }
+
+    private void FlagSet()
+    {
+        isGameStart = true;
+        isBattle = false;
+        isGameOver = false;
+        isStageClear = false;
+        enemyGenerator.isBossBattle = false;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="checkRootNo"></param>
     /// <returns></returns>
-    private List<PathData>GetPathDatasList(int checkRootNo)
-    {
-        return pathDataSO.rootDatasList.Find(x => x.rootNo == checkRootNo).pathDatasList;
-    }
+    //private List<PathData>GetPathDatasList(int checkRootNo)
+    //{
+    //    return pathDataSO.rootDatasList.Find(x => x.rootNo == checkRootNo).pathDatasList;
+    //}
 
     /// <summary>
     /// ルートの確認
@@ -297,7 +320,7 @@ public class GameMaster : MonoBehaviour
                 if (rootDatasList[currentRailCount].rootEventNos.Length == 1)
                 {
                     //自動的にレール移動を開始
-                    fieldAutoScroller.SetNextField(GetPathDatasList(rootDatasList[currentRailCount].rootEventNos[0]));
+                    //fieldAutoScroller.SetNextField(GetPathDatasList(rootDatasList[currentRailCount].rootEventNos[0]));
                 }
                 else
                 {
@@ -308,7 +331,7 @@ public class GameMaster : MonoBehaviour
                     yield return new WaitUntil(() => uiManager.GetSubmitBranch().Item1 == true);
 
                     //
-                    fieldAutoScroller.SetNextField(GetPathDatasList(uiManager.GetSubmitBranch().Item2));
+                    //fieldAutoScroller.SetNextField(GetPathDatasList(uiManager.GetSubmitBranch().Item2));
                 }
                 break;
 
@@ -340,8 +363,6 @@ public class GameMaster : MonoBehaviour
     public void GenerateGimmick(EventDataSO.EventData enemyEventData, Transform enemyEventTran)
     {
         GameObject enemy = Instantiate(enemyEventData.eventPrefab, enemyEventTran);
-        gimmicksList.Add(enemy);
-
-        
+        //gimmicksList.Add(enemy);   
     }
 }

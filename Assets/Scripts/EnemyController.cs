@@ -79,11 +79,19 @@ public class EnemyController : MonoBehaviour
 
         if (isBoss == false)
         {
-            this.gameObject.transform.position = Vector3.MoveTowards(transform.position, targetPos, 8 * Time.deltaTime);
+            if(enemyGenerator.isBossBattle == false)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, 8 * Time.deltaTime);
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, 4 * Time.deltaTime);
+            }
+            
         }
         else
         {
-            this.gameObject.transform.position = Vector3.MoveTowards(transform.position, targetPos, 4 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, 4 * Time.deltaTime);
         }
 
     }

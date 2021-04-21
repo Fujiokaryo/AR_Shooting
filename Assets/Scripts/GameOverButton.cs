@@ -5,13 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class GameOverButton : MonoBehaviour
 {
+    private Transform startPos;
 
-    
+    private GameObject player;
+
+    private GameMaster gameMaster;
     /// <summary>
     /// ゲームリスタート
     /// </summary>
     public void ReStart()
     {
+        //startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        //player = GameObject.Find("AR Session Origin");
+        //gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        
+
+        //player.transform.position = startPos.position;
+  
+        //StartCoroutine(gameMaster.GameStartSet());
+        //GameObject.Find("GameOverSet").SetActive(false);
+
         SceneManager.LoadScene("Main");
     }
     /// <summary>
@@ -23,7 +36,7 @@ public class GameOverButton : MonoBehaviour
     }
 
     /// <summary>
-    ///ゲームレベルを上げてゲームリスタート、ステータスアップ画面呼び出し 
+    ///ゲームレベルUP時のステータスアップ画面呼び出し 
     /// 
     /// </summary>
     public void NextLevel()

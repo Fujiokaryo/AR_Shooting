@@ -16,17 +16,23 @@ public class BulletGenerator : MonoBehaviour
     [SerializeField]
     private EnemyGenerator enemyGenerator;
 
+    [SerializeField]
+    private ARManager arManager;
+
     public bool useHighMagic;
 
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            if(!gameMaster.isGameOver)
+            if (arManager.currentARState == ARManager.ARState.Play)
             {
-                if (!gameMaster.isStageClear)
+                if (!gameMaster.isGameOver)
                 {
-                    ShotBullet();
+                    if (!gameMaster.isStageClear)
+                    {
+                        ShotBullet();
+                    }
                 }
             }
             

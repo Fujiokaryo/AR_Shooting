@@ -13,11 +13,15 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField]
     private GameMaster gameMaster;
 
+    [SerializeField]
+    private Transform[] generateTran = new Transform[4];
+
     public int enemyCount;
 
     private GameObject target;
     private float enemyGenTime;
     public bool isBossBattle;
+    
     
 
     public void SetUPEnemyGenerator()
@@ -27,7 +31,11 @@ public class EnemyGenerator : MonoBehaviour
 
     private void Update()
     {
-        enemyGenTime += Time.deltaTime;
+        if(gameMaster.isGameStart == true)
+        {
+            enemyGenTime += Time.deltaTime;
+        }
+        
 
         //“G‚ª1‘ÌˆÈã‹‚ê‚ÎisBattleƒtƒ‰ƒO‚ðtrue‚É‚·‚é
         if (enemyCount >= 1)
@@ -61,7 +69,7 @@ public class EnemyGenerator : MonoBehaviour
         }
         else
         {
-            if(enemyGenTime > 2)
+            if(enemyGenTime > 3.5f)
             {
                 for (int i = 1; i <= Random.Range(1, 5); i++)
                 {
@@ -80,11 +88,20 @@ public class EnemyGenerator : MonoBehaviour
     /// </summary>
     public void GenerateEnemy(bool isBoss = false)
     {
+        Vector3 randomPos = new Vector3(0, 0, Random.Range(-10, 10));
 
         if (isBoss == false)
         {
-            GameObject enemy = Instantiate(enemyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z + Random.Range(-10, 10)), Quaternion.identity);
-            enemy.GetComponent<EnemyController>().SetUpEnemy(target, this, isBoss);
+            if (isBossBattle == false)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, transform.position + randomPos, Quaternion.identity);
+                enemy.GetComponent<EnemyController>().SetUpEnemy(target, this, isBoss);
+            }
+            else
+            {
+                GameObject enemy = Instantiate(enemyPrefab, generateTran[Random.Range(0, generateTran.Length)].position + randomPos, Quaternion.identity);
+                enemy.GetComponent<EnemyController>().SetUpEnemy(target, this, isBoss);
+            }
         }
         else 
         {
