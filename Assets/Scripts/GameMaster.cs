@@ -258,6 +258,8 @@ public class GameMaster : MonoBehaviour
         isGameStart = false;
         BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Main);
         imgLevelNum.sprite = SelectGameLevelNum();
+        
+
 
         for (int i = 0; i < enemy.Length; i++)
         {
@@ -273,10 +275,18 @@ public class GameMaster : MonoBehaviour
         enemyGenerator.SetUPEnemyGenerator();
         hpText.text = playerHp + " / " + playerMaxHp.ToString();
 
+        Debug.Log("a");
+
         yield return new WaitForSeconds(2.0f);
 
+        Debug.Log("b");
         gameStartSet.SetActive(false);
         FlagSet();
+    }
+
+    public void GameReady()
+    {
+        StartCoroutine(GameStartSet());
     }
 
     private void FlagSet()

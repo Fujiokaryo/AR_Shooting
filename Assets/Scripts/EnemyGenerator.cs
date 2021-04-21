@@ -27,6 +27,7 @@ public class EnemyGenerator : MonoBehaviour
     public void SetUPEnemyGenerator()
     {
         target = GameObject.Find("AR Session Origin");
+        enemyCount = 0;
     }
 
     private void Update()

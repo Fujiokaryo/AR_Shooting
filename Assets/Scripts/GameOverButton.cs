@@ -15,17 +15,18 @@ public class GameOverButton : MonoBehaviour
     /// </summary>
     public void ReStart()
     {
-        //startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
-        //player = GameObject.Find("AR Session Origin");
-        //gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        player = GameObject.Find("AR Session Origin");
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
         
 
-        //player.transform.position = startPos.position;
-  
-        //StartCoroutine(gameMaster.GameStartSet());
-        //GameObject.Find("GameOverSet").SetActive(false);
+        player.transform.position = startPos.position;
 
-        SceneManager.LoadScene("Main");
+        gameMaster.GameReady();
+        GameObject.Find("GameOverSet").SetActive(false);
+
+        //SceneManager.LoadScene("Main");
     }
     /// <summary>
     /// ÉQÅ[ÉÄèIóπ
