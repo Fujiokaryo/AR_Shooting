@@ -40,6 +40,12 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    [SerializeField]
+    private GameObject chengeBGM;
+
+    [SerializeField]
+    private GameObject arCamera;
+
     //[SerializeField]
     //private FieldAutoScroller fieldAutoScroller;
 
@@ -251,15 +257,20 @@ public class GameMaster : MonoBehaviour
         return newgameLevelImage.levelSprite;
     }
 
+    /// <summary>
+    /// ゲームスタート時の初期設定
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator GameStartSet()
     {
+        arCamera.transform.rotation = player.transform.rotation;
         GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
         gameStartSet.SetActive(true);
         isGameStart = false;
         BGMmanager.instance.PlayBGM(SoundDataSO.BgmType.Main);
         imgLevelNum.sprite = SelectGameLevelNum();
-        
-
+        playerHpBar.value = 1;
+        chengeBGM.SetActive(true);
 
         for (int i = 0; i < enemy.Length; i++)
         {
@@ -267,19 +278,20 @@ public class GameMaster : MonoBehaviour
         }
 
         //基本HPは100、HPLevelが上がる毎に50ずつ上昇
-        playerHp = 50 + GameLevel.instance.hpLevel * 50;
-        playerMaxHp = playerHp;
+        playerMaxHp = 50 + GameLevel.instance.hpLevel * 50;
+        playerHp = playerMaxHp;
 
         //強魔法の最大ストック数、基本2でManaLevelが1上がる毎に1ずつ増加
         playerMaxMp = GameLevel.instance.manaLevel;
+        playerMp = 0;
+        playerMpBar.value = 0;
+        CheckHighMagicCount();
+
         enemyGenerator.SetUPEnemyGenerator();
         hpText.text = playerHp + " / " + playerMaxHp.ToString();
-
-        Debug.Log("a");
-
+      
         yield return new WaitForSeconds(2.0f);
-
-        Debug.Log("b");
+       
         gameStartSet.SetActive(false);
         FlagSet();
     }
@@ -295,6 +307,7 @@ public class GameMaster : MonoBehaviour
         isBattle = false;
         isGameOver = false;
         isStageClear = false;
+        bossClear = false;
         enemyGenerator.isBossBattle = false;
     }
 

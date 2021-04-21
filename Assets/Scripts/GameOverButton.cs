@@ -13,14 +13,12 @@ public class GameOverButton : MonoBehaviour
     /// <summary>
     /// ゲームリスタート
     /// </summary>
-    public void ReStart()
+    public void GameOverReStart()
     {
         startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
         player = GameObject.Find("AR Session Origin");
         gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
-
-        
-
+    
         player.transform.position = startPos.position;
 
         gameMaster.GameReady();
@@ -28,6 +26,20 @@ public class GameOverButton : MonoBehaviour
 
         //SceneManager.LoadScene("Main");
     }
+
+    public void GameClearReStart()
+    {
+        startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        player = GameObject.Find("AR Session Origin");
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
+        player.transform.position = startPos.position;
+        player.transform.rotation = startPos.rotation;
+
+        gameMaster.GameReady();
+        GameObject.Find("GameClearSet").SetActive(false);
+    }
+
     /// <summary>
     /// ゲーム終了
     /// </summary>
@@ -59,7 +71,15 @@ public class GameOverButton : MonoBehaviour
         {
             GameLevel.instance.gameLevel = 1;
         }
-        SceneManager.LoadScene("Main");
+        startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        player = GameObject.Find("AR Session Origin");
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
+        player.transform.position = startPos.position;
+        player.transform.rotation = startPos.rotation;
+
+        gameMaster.GameReady();
+        GameObject.Find("GameOverSet").SetActive(false);
     }
 
     /// <summary>
@@ -68,7 +88,15 @@ public class GameOverButton : MonoBehaviour
     public void HpUP()
     {
         GameLevel.instance.hpLevel++;
-        SceneManager.LoadScene("Main");
+        startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        player = GameObject.Find("AR Session Origin");
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
+        player.transform.position = startPos.position;
+        player.transform.rotation = startPos.rotation;
+
+        gameMaster.GameReady();
+        GameObject.Find("LevelUpSet").SetActive(false);
     }
 
     /// <summary>
@@ -77,7 +105,15 @@ public class GameOverButton : MonoBehaviour
     public void ManaUp()
     {
         GameLevel.instance.manaLevel++;
-        SceneManager.LoadScene("Main");
+        startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        player = GameObject.Find("AR Session Origin");
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
+        player.transform.position = startPos.position;
+        player.transform.rotation = startPos.rotation;
+
+        gameMaster.GameReady();
+        GameObject.Find("LevelUpSet").SetActive(false);
     }
 
     /// <summary>
@@ -86,6 +122,14 @@ public class GameOverButton : MonoBehaviour
     public void AttackUP()
     {
         GameLevel.instance.attackLevel++;
-        SceneManager.LoadScene("Main");
+        startPos = GameObject.Find("StartPosAnker").GetComponent<Transform>();
+        player = GameObject.Find("AR Session Origin");
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+
+        player.transform.position = startPos.position;
+        player.transform.rotation = startPos.rotation;
+
+        gameMaster.GameReady();
+        GameObject.Find("LevelUpSet").SetActive(false);
     }
 }
