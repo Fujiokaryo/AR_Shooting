@@ -21,8 +21,8 @@ public class EnemyGenerator : MonoBehaviour
     private GameObject target;
     private float enemyGenTime;
     public bool isBossBattle;
-    
-    
+
+    public List<TargetIndicator> targetMax = new List<TargetIndicator>();
 
     public void SetUPEnemyGenerator()
     {
@@ -90,23 +90,24 @@ public class EnemyGenerator : MonoBehaviour
     public void GenerateEnemy(bool isBoss = false)
     {
         Vector3 randomPos = new Vector3(0, 0, Random.Range(-10, 10));
+        GameObject enemy;
 
         if (isBoss == false)
         {
             if (isBossBattle == false)
             {
-                GameObject enemy = Instantiate(enemyPrefab, transform.position + randomPos, Quaternion.identity);
+                enemy = Instantiate(enemyPrefab, transform.position + randomPos, Quaternion.identity);
                 enemy.GetComponent<EnemyController>().SetUpEnemy(target, this, isBoss);
             }
             else
             {
-                GameObject enemy = Instantiate(enemyPrefab, generateTran[Random.Range(0, generateTran.Length)].position + randomPos, Quaternion.identity);
+                enemy = Instantiate(enemyPrefab, generateTran[Random.Range(0, generateTran.Length)].position + randomPos, Quaternion.identity);
                 enemy.GetComponent<EnemyController>().SetUpEnemy(target, this, isBoss);
             }
         }
         else 
         {
-            GameObject enemy = Instantiate(enemyPrefab, new Vector3(transform.position.x + 40, 0.1f, transform.position.z), Quaternion.identity);
+            enemy = Instantiate(enemyPrefab, new Vector3(transform.position.x + 40, 0.1f, transform.position.z), Quaternion.identity);
             enemy.GetComponent<EnemyController>().SetUpEnemy(target, this, isBoss);
             isBossBattle = true;
         }

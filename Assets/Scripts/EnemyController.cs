@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     public int hp;
     public int speed;
     public GameObject[] enemy;
+    public int enemyNo;
 
     private EnemyGenerator enemyGenerator;
     private Animator anime;
@@ -34,7 +35,9 @@ public class EnemyController : MonoBehaviour
     private int maxHp;
     private GameMaster gameMaster;
     private bool isBoss;
-
+    private GameObject searchArrow;
+    private List<GameObject> enemyList;
+    private EnemySearch enemySearch;
 
     /// <summary>
     /// エネミーの初期設定
@@ -54,11 +57,13 @@ public class EnemyController : MonoBehaviour
         enemyHpBar.value = 1.0f;
         transform.LookAt(target.transform);      
         
+        //ボスの場合
         if(isBoss == true)
         {
+            //敵のサイズを3倍にする
             gameObject.transform.localScale = gameObject.transform.localScale * 3;
 
-            //ボスの初期HP、500からgameLevelが1上がる毎に100ずつ増加
+            //ボスの初期HP設定　500からgameLevelが1上がる毎に100ずつ増加
             hp = 400 + GameLevel.instance.gameLevel * 100;
         }
 
@@ -160,6 +165,11 @@ public class EnemyController : MonoBehaviour
                 enemyGenerator.isBossBattle = false;
             }
 
+            //サーチ用エネミーリストからデータ削除、対応するインジケータの非表示
+           
+            enemySearch.enemyList.Remove(enemyList[enemyNo]);
+            searchArrow.GetComponent<Image>().enabled = false;
+
             //倒した敵の魂の生成、設定
             GameObject soul = Instantiate(downEffect, gameObject.transform.position + soulPos, Quaternion.identity);
             soul.GetComponent<DefeatEffect>().SetUpSoul(target);
@@ -204,6 +214,10 @@ public class EnemyController : MonoBehaviour
         {
             enemyGenerator.DecreaseEnemyCount();
         }
+
+        
+        enemySearch.enemyList.Remove(enemyList[enemyNo]);
+        searchArrow.GetComponent<Image>().enabled = false;
 
         gameMaster.CheckStageClear();
         Destroy(gameObject);
@@ -273,5 +287,13 @@ public class EnemyController : MonoBehaviour
         }
 
         return dropItem;
+    }
+
+    public void LinkSearchArrow(int enemyNo, GameObject searchArrow, EnemySearch enemySearch)
+    {
+        this.enemyNo = enemyNo;
+        this.searchArrow = searchArrow;
+        this.enemySearch = enemySearch;
+        searchArrow.GetComponent<TargetIndicator>().SetUpTarget(gameObject.transform);
     }
 }
