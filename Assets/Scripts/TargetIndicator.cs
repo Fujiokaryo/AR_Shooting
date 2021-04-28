@@ -14,20 +14,37 @@ public class TargetIndicator : MonoBehaviour
     private Camera mainCamera;
     private RectTransform rectTransform;
 
+    private Transform canvasTran;
+    float canvasScale;
 
-    public void SetUpTarget(Transform targetTran)
+    /// <summary>
+    /// ターゲットを抜く
+    /// </summary>
+    public void ResetTarget() {
+        target = null;
+        arrow.enabled = false;
+    }
+
+    public void SetUpTarget(Transform targetTran, Transform canvasTran)
     {
         mainCamera = Camera.main;
         TryGetComponent(out rectTransform);
         target = targetTran;
-        arrow.enabled = true;
+        this.canvasTran = canvasTran;
+
+
+
+        //arrow.enabled = true;
     }
 
     private void LateUpdate()
     {
         var center = 0.5f * new Vector3(Screen.width, Screen.height);
-        float canvasScale = transform.root.localScale.z;
 
+        if(canvasTran != null) {
+            canvasScale = canvasTran.localScale.z;
+        }
+        
         //(画面中心を原点(0, 0)とした)、ターゲットのスクリーン座標を求める
         if (target != null)
         {

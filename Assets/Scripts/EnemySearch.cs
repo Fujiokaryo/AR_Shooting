@@ -5,18 +5,29 @@ using UnityEngine.UI;
 
 public class EnemySearch : MonoBehaviour
 {
-    [SerializeField]
-    public List<GameObject> enemyList;
+    //[SerializeField]
+    //public List<GameObject> enemyList;
 
-    public GameObject[] searchArrows;
+    private GameObject[] searchArrows;
+
+    public TargetIndicator[] indicators;
+
+    [SerializeField]
+    private Transform canvasTran;
+
 
     private void Awake()
     {
         searchArrows = GameObject.FindGameObjectsWithTag("SearchArrow");
 
-        for(int i = 0; i < searchArrows.Length; i++)
+        indicators = new TargetIndicator[searchArrows.Length];
+
+        for (int i = 0; i < searchArrows.Length; i++)
         {
-            searchArrows[i].GetComponent<Image>().enabled = false;
+            searchArrows[i].TryGetComponent(out indicators[i]);
+
+            indicators[i].ResetTarget();
+            //searchArrows[i].GetComponent<Image>().enabled = false;
         }
     }
 
@@ -29,16 +40,27 @@ public class EnemySearch : MonoBehaviour
 
     }
 
-    private void AddListEnemy(GameObject enemy)
+    private void AddListEnemy(GameObject enemy) 
     {
-       EnemyController enemyController = enemy.GetComponent<EnemyController>();
-       enemyList.Add(enemy);
+        EnemyController enemyController = enemy.GetComponent<EnemyController>();
+        //enemyList.Add(enemy);
 
-        int i = enemyList.Count - 1;                   
-       
-       enemyController.LinkSearchArrow(i, searchArrows[i], this) ;
-            
-        
+        //int i = enemyList.Count - 1; 
+
+        // 空いているインジケーターを見つける
+        for (int i = 0; i < indicators.Length; i++) {
+            if (indicators[i].target == null) {
+                enemyController.LinkSearchArrow(i, indicators[i], this, canvasTran);
+                break;
+            }
+        }
+
+        // TODO インジケータをプレファブにしておいて、List にしておいて、足りない分は足す
+
+
+        //enemyController.LinkSearchArrow(i, indicators[i], this, canvasTran);
+
+
     }
 
 }

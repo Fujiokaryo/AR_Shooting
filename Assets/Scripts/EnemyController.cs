@@ -39,6 +39,9 @@ public class EnemyController : MonoBehaviour
     private List<GameObject> enemyList;
     private EnemySearch enemySearch;
 
+    private TargetIndicator targetIndicator;
+
+
     /// <summary>
     /// エネミーの初期設定
     /// </summary>
@@ -166,9 +169,13 @@ public class EnemyController : MonoBehaviour
             }
 
             //サーチ用エネミーリストからデータ削除、対応するインジケータの非表示
-           
-            enemySearch.enemyList.Remove(enemyList[enemyNo]);
-            searchArrow.GetComponent<Image>().enabled = false;
+
+            //enemySearch.enemyList.Remove(enemyList[enemyNo]);
+
+            // インジケーター表示対象をオフ
+            targetIndicator.ResetTarget();
+
+            //searchArrow.GetComponent<Image>().enabled = false;
 
             //倒した敵の魂の生成、設定
             GameObject soul = Instantiate(downEffect, gameObject.transform.position + soulPos, Quaternion.identity);
@@ -215,9 +222,11 @@ public class EnemyController : MonoBehaviour
             enemyGenerator.DecreaseEnemyCount();
         }
 
-        
-        enemySearch.enemyList.Remove(enemyList[enemyNo]);
-        searchArrow.GetComponent<Image>().enabled = false;
+        // インジケーター表示対象をオフ
+        targetIndicator.ResetTarget();
+
+        //enemySearch.enemyList.Remove(enemyList[enemyNo]);
+        //searchArrow.GetComponent<Image>().enabled = false;
 
         gameMaster.CheckStageClear();
         Destroy(gameObject);
@@ -289,11 +298,16 @@ public class EnemyController : MonoBehaviour
         return dropItem;
     }
 
-    public void LinkSearchArrow(int enemyNo, GameObject searchArrow, EnemySearch enemySearch)
+    public void LinkSearchArrow(int enemyNo, TargetIndicator targetIndicator, EnemySearch enemySearch, Transform canvasTran)
     {
         this.enemyNo = enemyNo;
-        this.searchArrow = searchArrow;
+        //this.searchArrow = searchArrow;
+        
         this.enemySearch = enemySearch;
-        searchArrow.GetComponent<TargetIndicator>().SetUpTarget(gameObject.transform);
+        
+        this.targetIndicator = targetIndicator;
+
+        targetIndicator.SetUpTarget(gameObject.transform, canvasTran);      
     }
+
 }
