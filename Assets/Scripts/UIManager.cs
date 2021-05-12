@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     }
     public void DisplayDebug(string message)
     {
-        txtDebugMessage.text = message;
+        //txtDebugMessage.text = message;
     }
 
 

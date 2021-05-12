@@ -32,4 +32,4 @@ MonoBehaviour:
   seDataList:
   - no: 0
     seAudioClip: {fileID: 8300000, guid: d33f248ee1adc9840a73d381026cc12a, type: 3}
-    volume: 0.1
+    volume: 0.05

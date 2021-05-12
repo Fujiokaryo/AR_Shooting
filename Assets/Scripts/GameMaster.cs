@@ -88,6 +88,9 @@ public class GameMaster : MonoBehaviour
     public bool isGameOver;
     public bool isStageClear;
 
+
+    public bool isDebugOn;
+
     public void Start()
     {
         StartCoroutine(GameStartSet());
@@ -277,8 +280,10 @@ public class GameMaster : MonoBehaviour
             Destroy(enemy[i]);
         }
 
-        //基本HPは100、HPLevelが上がる毎に50ずつ上昇
-        playerMaxHp = 50 + GameLevel.instance.hpLevel * 50;
+        if (!isDebugOn) {
+            //基本HPは100、HPLevelが上がる毎に50ずつ上昇
+            playerMaxHp = 50 + GameLevel.instance.hpLevel * 50;            
+        }
         playerHp = playerMaxHp;
 
         //強魔法の最大ストック数、基本2でManaLevelが1上がる毎に1ずつ増加
