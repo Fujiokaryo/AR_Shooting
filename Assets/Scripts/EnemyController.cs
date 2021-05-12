@@ -173,8 +173,10 @@ public class EnemyController : MonoBehaviour
             //enemySearch.enemyList.Remove(enemyList[enemyNo]);
 
             // インジケーター表示対象をオフ
-            targetIndicator.ResetTarget();
-
+            if (targetIndicator != null)
+            {
+                targetIndicator.ResetTarget();
+            }
             //searchArrow.GetComponent<Image>().enabled = false;
 
             //倒した敵の魂の生成、設定
@@ -223,7 +225,10 @@ public class EnemyController : MonoBehaviour
         }
 
         // インジケーター表示対象をオフ
-        targetIndicator.ResetTarget();
+        if (targetIndicator != null)
+        {
+            targetIndicator.ResetTarget();
+        }
 
         //enemySearch.enemyList.Remove(enemyList[enemyNo]);
         //searchArrow.GetComponent<Image>().enabled = false;

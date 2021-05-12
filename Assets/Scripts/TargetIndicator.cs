@@ -32,9 +32,6 @@ public class TargetIndicator : MonoBehaviour
         target = targetTran;
         this.canvasTran = canvasTran;
 
-
-
-        //arrow.enabled = true;
     }
 
     private void LateUpdate()
@@ -45,10 +42,11 @@ public class TargetIndicator : MonoBehaviour
             canvasScale = canvasTran.localScale.z;
         }
         
-        //(画面中心を原点(0, 0)とした)、ターゲットのスクリーン座標を求める
+        //画面中心を原点(0, 0)とした、ターゲットのスクリーン座標を求める
         if (target != null)
         {
             var pos = mainCamera.WorldToScreenPoint(target.position) - center;
+            pos.y += 150f;
 
 
             //カメラ後方にあるターゲットのスクリーン座標は、画面中心に対する点対象の座標にする
@@ -64,14 +62,17 @@ public class TargetIndicator : MonoBehaviour
                 }
             }
 
+            //UI座標系の値をスクリーン座標系の値に変換する
             var halfSize = 0.5f * canvasScale * rectTransform.sizeDelta;
             float d = Mathf.Max(
-                Mathf.Abs(pos.x / (center.x - halfSize.x)),
-                Mathf.Abs(pos.y / (center.y - halfSize.y))
-                );
+                Mathf.Abs(pos.x / (center.x - halfSize.x)), Mathf.Abs(pos.y / (center.y - halfSize.y)));
 
             //ターゲットのスクリーン座標が画面外なら、画面端になるよう調整する
-            bool isOffscreen = pos.z < 0f || d > 1f;
+            bool isOffscreen = (pos.z < 0f || d > 1f);
+            //Debug.Log("pos = " + pos.y);
+            //Debug.Log(d);
+            //Debug.Log("center = " + center.y);
+            //Debug.Log("halfsize = " + halfSize.y);
             if (isOffscreen)
             {
                 pos.x /= d;
@@ -79,7 +80,9 @@ public class TargetIndicator : MonoBehaviour
             }
             rectTransform.anchoredPosition = pos / canvasScale;
 
+            //ターゲットのスクリーン座標が画面外なら、ターゲットの方向を刺す矢印を表示する
             arrow.enabled = isOffscreen;
+
             if (isOffscreen)
             {
                 arrow.rectTransform.eulerAngles = new Vector3
